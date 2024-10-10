@@ -38,8 +38,8 @@ plot(cie.lambda,bb_2856,'k-');
 
 %% step 4
 % create ref2XYZ in the file ref2XYZ.m
-
-% include a listing of the code in your report (see markup used for loadCIEdata above)
+%
+% <include>ref2XYZ.m</include>
 
 
 %% step 5
