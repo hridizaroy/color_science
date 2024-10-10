@@ -75,26 +75,81 @@ cm_lams = 380:10:730;
 % note: 19 is the number of header lines to skip in the .sp file before
 % reading the data. may vary for the real, imaged, and matching .sp files
 % so open the files and count down to figure this out
-data = importdata('31.1_real.sp', ' ', 19);
-real_311 = data.data./100;
 
-% do this for the rest of the data
+cm_h_offset_im = 18;
+cm_h_offset_r = 19;
+
+% load and normalize the measured spectral data for the patch #1
+data = importdata('1.1_real.sp', ' ', cm_h_offset_r);
+real_11 = data.data/100;
+data = importdata('1.1_imaged.sp', ' ', cm_h_offset_im);
+imaged_11 = data.data/100;
+data = importdata('1.1_matching.sp', ' ', cm_h_offset_im);
+matching_11 = data.data/100;
+
+% repeat the section above for patch #2
+data = importdata('1.2_real.sp', ' ', cm_h_offset_r);
+real_12 = data.data/100;
+data = importdata('1.2_imaged.sp', ' ', cm_h_offset_im);
+imaged_12 = data.data/100;
+data = importdata('1.2_matching.sp', ' ', cm_h_offset_im);
+matching_12 = data.data/100;
 
 
 %% step 9
 % interpolate and plot the original and interpolated data
 
 % interpolate/extrapolate the CM spectral data to 380-780, 5nm
-real_311i = interp1(cm_lams, real_311, cie.lambda, 'linear', 'extrap');
+
+% Patch #1
+real_11i = interp1(cm_lams, real_11, cie.lambda, 'linear', 'extrap');
+imaged_11i = interp1(cm_lams, imaged_11, cie.lambda, 'linear', 'extrap');
+matching_11i = interp1(cm_lams, matching_11, cie.lambda, 'linear', 'extrap');
+
+% Patch #2
+real_12i = interp1(cm_lams, real_12, cie.lambda, 'linear', 'extrap');
+imaged_12i = interp1(cm_lams, imaged_12, cie.lambda, 'linear', 'extrap');
+matching_12i = interp1(cm_lams, matching_12, cie.lambda, 'linear', 'extrap');
 
 % create a figure for patch #1 that confirms the process
 figure; 
 hold on;
 line_weight = 1.5;
 
-plot(cm_lams, real_311, 'ro');
+plot(cm_lams, real_11, 'ro', 'DisplayName', 'real measured');
+plot(cm_lams, imaged_11, 'go', 'DisplayName', 'imaged measured');
+plot(cm_lams, matching_11, 'bo', 'DisplayName', 'matching measured');
 
-% do this for the rest of the data (original and interpolated
+plot(cie.lambda, real_11i, 'r--', 'DisplayName', 'real interpolated');
+plot(cie.lambda, imaged_11i, 'g--', 'DisplayName', 'imaged interpolated');
+plot(cie.lambda, matching_11i, 'b--', 'DisplayName', 'matching interpolated');
+
+title('Patch 1.1 Measured and Interpolated Spectra');
+xlabel('Wavelength (nm)');
+ylabel('Reflectance Factor');
+legend;
+grid on;
+xlim([380 780]);
+
+% Figure for patch 2
+figure;
+hold on;
+line_weight = 1.5;
+
+plot(cm_lams, real_12, 'ro', 'DisplayName', 'real measured');
+plot(cm_lams, imaged_12, 'go', 'DisplayName', 'imaged measured');
+plot(cm_lams, matching_12, 'bo', 'DisplayName', 'matching measured');
+
+plot(cie.lambda, real_12i, 'r--', 'DisplayName', 'real interpolated');
+plot(cie.lambda, imaged_12i, 'g--', 'DisplayName', 'imaged interpolated');
+plot(cie.lambda, matching_12i, 'b--', 'DisplayName', 'matching interpolated');
+
+title('Patch 1.2 Measured and Interpolated Spectra');
+xlabel('Wavelength (nm)');
+ylabel('Reflectance Factor');
+legend;
+grid on;
+xlim([380 780]);
 
 
 %% step 10
