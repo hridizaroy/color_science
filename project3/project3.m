@@ -26,12 +26,26 @@ cie = loadCIEdata;
 % test loadCIEdata by ploting illA, D50, and D65 vs. the blackbody curves
 
 bb_2856 = blackbody(2856,cie.lambda);
+bb_5003 = blackbody(5003,cie.lambda);
+bb_6504 = blackbody(6504,cie.lambda);
 
-figure;
+figure(1);
 hold on;
 
-plot(cie.lambda,bb_2856,'k-');
+plot(cie.lambda,bb_2856,'k', cie.lambda,bb_5003,'r', cie.lambda,bb_6504,'b',  cie.lambda,(cie.illA / 100),'--k',  cie.lambda,(cie.illD50 / 100),'--r',  cie.lambda,(cie.illD65 / 100),'--b');
+legend('blackbody (2856K)', 'blackbody (5003K)', 'blackbody (6504K)', 'illuminant A', 'illuminant D50', 'illuminant D65', 'Location','best');
+title('blackbody and standard illuminant spectra');
+xlabel('wavelength(nm)'); 
+ylabel('relative power'); 
 
+figure(2);
+hold on;
+
+plot(cie.lambda,cie.cmf2deg(:,1,:),'r', cie.lambda,cie.cmf2deg(:,2,:),'g', cie.lambda,cie.cmf2deg(:,3,:),'b',  cie.lambda,cie.cmf10deg(:,1,:),'--r',  cie.lambda,cie.cmf10deg(:,2,:),'--g',  cie.lambda,cie.cmf10deg(:,3,:),'--b');
+legend('x_b_a_r 2 deg', 'y_b_a_r 2 deg', 'z_b_a_r 2 deg', 'x_b_a_r 10 deg', 'y_b_a_r 10 deg', 'z_b_a_r 10 deg', 'Location','best');
+title('CIE standard observer CMFs');
+xlabel('wavelength(nm)'); 
+ylabel('tristimulus values'); 
 % do this for the rest of the data
 
 
@@ -57,7 +71,7 @@ CC_XYZs
 
 %% step 6
 % create XYZ2xyY in the file XYZ2xyY.m
-
+xyY = XYZ2xyY(XYZ);
 
 %% step 7
 % test XYZ2xyY
