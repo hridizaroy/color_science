@@ -1,6 +1,4 @@
 
-%%
-% <include>loadCIEdata.m</include>
 function [cie] = loadCIEdata
     data2deg = load('../color_toolbox/CIE_2Deg_380-780-5nm.txt');
     cie.lambda = data2deg(:, 1);        % Wavelengths (81x1 column vector)

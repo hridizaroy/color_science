@@ -1,5 +1,3 @@
-%%
-% <include>XYZ2xyY.m</include>
 function xyY = XYZ2xyY(XYZ)
 
     % Split the matrix into corresponding row vectors

@@ -1,0 +1,927 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Project 3 Report</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-10">
+<meta name="DC.source" content="project3.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Project 3 Report</h1>
+<!--introduction-->
+<p>Team 5: Shakira Garnett, Hridiza Roy</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#1">start clean</a>
+</li>
+<li>
+<a href="#2">step 2a</a>
+</li>
+<li>
+<a href="#3">step 2b</a>
+</li>
+<li>
+<a href="#4">step 3</a>
+</li>
+<li>
+<a href="#5">step 4</a>
+</li>
+<li>
+<a href="#6">step 5</a>
+</li>
+<li>
+<a href="#7">step 6</a>
+</li>
+<li>
+<a href="#9">step 7</a>
+</li>
+<li>
+<a href="#10">step 8</a>
+</li>
+<li>
+<a href="#11">step 9</a>
+</li>
+<li>
+<a href="#12">step 10</a>
+</li>
+<li>
+<a href="#13">step 11</a>
+</li>
+<li>
+<a href="#14">step 12</a>
+</li>
+<li>
+<a href="#15">feedback</a>
+</li>
+</ul>
+</div>
+<h2 id="1">start clean</h2>
+<pre class="codeinput">clear <span class="string">all</span>; close <span class="string">all</span>; clc;
+</pre>
+<h2 id="2">step 2a</h2>
+<pre class="codeinput">
+<span class="comment">% load the CIE observer and illuminant data</span>
+cie = loadCIEdata;
+</pre>
+<h2 id="3">step 2b</h2>
+<p>Include listing of loadCIEdata</p>
+<pre class="language-matlab">
+
+<span class="keyword">function</span> [cie] = loadCIEdata
+    data2deg = load(<span class="string">'../color_toolbox/CIE_2Deg_380-780-5nm.txt'</span>);
+    cie.lambda = data2deg(:, 1);        <span class="comment">% Wavelengths (81x1 column vector)</span>
+    cie.cmf2deg = data2deg(:, 2:4);     <span class="comment">% 2-degree CMF (81x3 array)</span>
+
+    data10deg = load(<span class="string">'../color_toolbox/CIE_10Deg_380-780-5nm.txt'</span>);
+    cie.cmf10deg = data10deg(:, 2:4);   <span class="comment">% 10-degree CMF (81x3 array)</span>
+
+    dataIllA = load(<span class="string">'../color_toolbox/CIE_IllA_380-780-5nm.txt'</span>);
+    cie.illA = dataIllA(:, 2);          <span class="comment">% Illuminant A (81x1 column vector)</span>
+
+    dataIllC = load(<span class="string">'../color_toolbox/CIE_IllC_380-780-5nm.txt'</span>);
+    cie.illC = dataIllC(:, 2);          <span class="comment">% Illuminant C (81x1 column vector)</span>
+
+    dataIllD50 = load(<span class="string">'../color_toolbox/CIE_IllD50_380-780-5nm.txt'</span>);
+    cie.illD50 = dataIllD50(:, 2);      <span class="comment">% Illuminant D50 (81x1 column vector)</span>
+
+    dataIllD65 = load(<span class="string">'../color_toolbox/CIE_IllD65_380-780-5nm.txt'</span>);
+    cie.illD65 = dataIllD65(:, 2);      <span class="comment">% Illuminant D65 (81x1 column vector)</span>
+
+    <span class="comment">% Create illuminant E with a constant value of 100</span>
+    cie.illE = 100 * ones(81, 1);       <span class="comment">% Illuminant E (81x1 column vector)</span>
+
+    dataIllF = load(<span class="string">'../color_toolbox/CIE_IllF_1-12_380-780-5nm.txt'</span>);
+    cie.illF = dataIllF(:, 2:end);      <span class="comment">% Illuminant F1-F12 (81x12 array)</span>
+
+    <span class="comment">% Create PRD with a constant value of 1</span>
+    cie.PRD = ones(81, 1);              <span class="comment">% PRD (81x1 column vector)</span>
+<span class="keyword">end</span>
+
+</pre>
+<h2 id="4">step 3</h2>
+<p>test loadCIEdata by ploting illA, D50, and D65 vs. the blackbody curves</p>
+<pre class="codeinput">bb_2856 = blackbody(2856,cie.lambda);
+bb_5003 = blackbody(5003,cie.lambda);
+bb_6504 = blackbody(6504,cie.lambda);
+
+figure(1);
+hold <span class="string">on</span>;
+
+plot(cie.lambda,bb_2856,<span class="string">'k'</span>, cie.lambda,bb_5003,<span class="string">'r'</span>, cie.lambda,bb_6504,<span class="string">'b'</span>, <span class="keyword">...</span>
+    cie.lambda,(cie.illA / 100),<span class="string">'--k'</span>,  cie.lambda,(cie.illD50 / 100),<span class="string">'--r'</span>, <span class="keyword">...</span>
+    cie.lambda,(cie.illD65 / 100),<span class="string">'--b'</span>);
+legend(<span class="string">'blackbody (2856K)'</span>, <span class="string">'blackbody (5003K)'</span>, <span class="string">'blackbody (6504K)'</span>, <span class="keyword">...</span>
+    <span class="string">'illuminant A'</span>, <span class="string">'illuminant D50'</span>, <span class="string">'illuminant D65'</span>, <span class="string">'Location'</span>,<span class="string">'best'</span>);
+title(<span class="string">'blackbody and standard illuminant spectra'</span>);
+xlabel(<span class="string">'wavelength(nm)'</span>);
+ylabel(<span class="string">'relative power'</span>);
+
+figure(2);
+hold <span class="string">on</span>;
+
+plot(cie.lambda,cie.cmf2deg(:,1,:),<span class="string">'r'</span>, cie.lambda,cie.cmf2deg(:,2,:),<span class="string">'g'</span>, <span class="keyword">...</span>
+    cie.lambda,cie.cmf2deg(:,3,:),<span class="string">'b'</span>,  cie.lambda,cie.cmf10deg(:,1,:),<span class="string">'--r'</span>,<span class="keyword">...</span>
+    cie.lambda,cie.cmf10deg(:,2,:),<span class="string">'--g'</span>,  cie.lambda,cie.cmf10deg(:,3,:),<span class="string">'--b'</span>);
+legend(<span class="string">'x_b_a_r 2 deg'</span>, <span class="string">'y_b_a_r 2 deg'</span>, <span class="string">'z_b_a_r 2 deg'</span>, <span class="string">'x_b_a_r 10 deg'</span>, <span class="keyword">...</span>
+    <span class="string">'y_b_a_r 10 deg'</span>, <span class="string">'z_b_a_r 10 deg'</span>, <span class="string">'Location'</span>,<span class="string">'best'</span>);
+title(<span class="string">'CIE standard observer CMFs'</span>);
+xlabel(<span class="string">'wavelength(nm)'</span>);
+ylabel(<span class="string">'tristimulus values'</span>);
+<span class="comment">% do this for the rest of the data</span>
+</pre>
+<img vspace="5" hspace="5" src="project3_01.png" alt=""> <img vspace="5" hspace="5" src="project3_02.png" alt=""> <h2 id="5">step 4</h2>
+<p>create ref2XYZ in the file ref2XYZ.m</p>
+<pre class="language-matlab">
+<span class="keyword">function</span> XYZ = ref2XYZ(ref,cmfs,ill);
+<span class="comment">% simple version of ref2XYZ that doesn't use matrix mults</span>
+
+<span class="comment">%compute normalizing constant for the illuminant</span>
+k = 100./sum(cmfs(:,2).*ill);
+
+<span class="comment">%compute the XYZs</span>
+X = k.*sum(cmfs(:,1).*ill.*ref);
+Y = k.*sum(cmfs(:,2).*ill.*ref);
+Z = k.*sum(cmfs(:,3).*ill.*ref);
+
+<span class="comment">% return them in a 3xn array</span>
+XYZ = [X;Y;Z];
+
+<span class="keyword">end</span>
+
+</pre>
+<h2 id="6">step 5</h2>
+<p>test ref2XYZ</p>
+<pre class="codeinput">CC_spectra = importdata(<span class="string">'ColorChecker_380_780_5nm.txt'</span>);
+
+<span class="keyword">for</span> patch_num = 2:25
+    CC_XYZs(:,patch_num-1) = ref2XYZ(CC_spectra(:,patch_num),cie.cmf2deg,cie.illD65);
+<span class="keyword">end</span>
+
+CC_XYZs
+</pre>
+<pre class="codeoutput">
+CC_XYZs =
+
+  Columns 1 through 7
+
+   11.5145   39.1346   18.3488   11.1492   25.8437   31.7110   37.1457
+   10.3819   36.5981   19.6332   13.8551   24.3868   43.8600   29.5592
+    7.1502   27.0564   35.6470    7.4267   45.6142   44.8778    6.5006
+
+  Columns 8 through 14
+
+   13.8627   29.1328    8.5889   33.9174   46.1864    8.9183   15.0353
+   12.3179   19.8475    6.4569   44.1533   42.4957    6.4177   24.1079
+   39.3093   14.9941   15.4745   11.4297    8.6771   32.2736    9.6379
+
+  Columns 15 through 21
+
+   19.3447   55.8457   29.6768   14.4138   87.8402   57.9621   35.2286
+   11.3576   58.9726   19.3515   19.9750   92.3781   61.0426   37.0414
+    5.5526    9.6411   32.2626   39.0008   95.6125   65.4909   40.2256
+
+  Columns 22 through 24
+
+   19.3492    8.7646    3.2111
+   20.4708    9.2915    3.3763
+   22.1545   10.3188    3.9312
+
+</pre>
+<h2 id="7">step 6</h2>
+<p>create XYZ2xyY in the file XYZ2xyY.m</p>
+<pre class="language-matlab">
+<span class="keyword">function</span> xyY = XYZ2xyY(XYZ)
+
+    <span class="comment">% Split the matrix into corresponding row vectors</span>
+    X = XYZ(1,:,:);
+    Y = XYZ(2,:,:);
+    Z = XYZ(3,:,:);
+
+    <span class="comment">% calculate chromaticitity coords</span>
+    x = X ./ (X + Y + Z);
+    y = Y ./ (X + Y + Z);
+
+    <span class="comment">% reconstruct &amp; return xyY matrix</span>
+    xyY = [x;y;Y];
+
+<span class="keyword">end</span>
+
+</pre>
+<h2 id="9">step 7</h2>
+<p>test XYZ2xyY</p>
+<pre class="codeinput">CC_xyYs = XYZ2xyY(CC_XYZs)
+</pre>
+<pre class="codeoutput">
+CC_xyYs =
+
+  Columns 1 through 7
+
+    0.3964    0.3807    0.2492    0.3438    0.2696    0.2633    0.5074
+    0.3574    0.3561    0.2667    0.4272    0.2544    0.3641    0.4038
+   10.3819   36.5981   19.6332   13.8551   24.3868   43.8600   29.5592
+
+  Columns 8 through 14
+
+    0.2117    0.4554    0.2814    0.3790    0.4744    0.1873    0.3082
+    0.1881    0.3102    0.2116    0.4933    0.4365    0.1348    0.4942
+   12.3179   19.8475    6.4569   44.1533   42.4957    6.4177   24.1079
+
+  Columns 15 through 21
+
+    0.5336    0.4487    0.3651    0.1964    0.3185    0.3142    0.3132
+    0.3133    0.4738    0.2381    0.2722    0.3349    0.3309    0.3293
+   11.3576   58.9726   19.3515   19.9750   92.3781   61.0426   37.0414
+
+  Columns 22 through 24
+
+    0.3122    0.3089    0.3053
+    0.3303    0.3275    0.3210
+   20.4708    9.2915    3.3763
+
+</pre>
+<h2 id="10">step 8</h2>
+<p>load the spectral data for the color patches</p>
+<pre class="codeinput">
+<span class="comment">% define ColorMunki/Argyll/spotread measurement wavelengths</span>
+cm_lams = 380:10:730;
+
+cm_h_offset_im = 18;
+cm_h_offset_r = 19;
+
+<span class="comment">% load and normalize the measured spectral data for the patch #1</span>
+data = importdata(<span class="string">'1.1_real.sp'</span>, <span class="string">' '</span>, cm_h_offset_r);
+real_11 = data.data/100;
+data = importdata(<span class="string">'1.1_imaged.sp'</span>, <span class="string">' '</span>, cm_h_offset_im);
+imaged_11 = data.data/100;
+data = importdata(<span class="string">'1.1_matching.sp'</span>, <span class="string">' '</span>, cm_h_offset_im);
+matching_11 = data.data/100;
+
+<span class="comment">% repeat for patch #2</span>
+data = importdata(<span class="string">'1.2_real.sp'</span>, <span class="string">' '</span>, cm_h_offset_r);
+real_12 = data.data/100;
+data = importdata(<span class="string">'1.2_imaged.sp'</span>, <span class="string">' '</span>, cm_h_offset_im);
+imaged_12 = data.data/100;
+data = importdata(<span class="string">'1.2_matching.sp'</span>, <span class="string">' '</span>, cm_h_offset_im);
+matching_12 = data.data/100;
+</pre>
+<h2 id="11">step 9</h2>
+<p>interpolate and plot the original and interpolated data</p>
+<pre class="codeinput">
+<span class="comment">% interpolate/extrapolate the CM spectral data to 380-780, 5nm</span>
+
+<span class="comment">% Patch #1</span>
+real_11i = interp1(cm_lams, real_11, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+imaged_11i = interp1(cm_lams, imaged_11, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+matching_11i = interp1(cm_lams, matching_11, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+
+<span class="comment">% Patch #2</span>
+real_12i = interp1(cm_lams, real_12, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+imaged_12i = interp1(cm_lams, imaged_12, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+matching_12i = interp1(cm_lams, matching_12, cie.lambda, <span class="string">'linear'</span>, <span class="string">'extrap'</span>);
+
+<span class="comment">% create a figure for patch #1 that confirms the process</span>
+figure;
+hold <span class="string">on</span>;
+
+plot(cm_lams, real_11, <span class="string">'ro'</span>, <span class="string">'DisplayName'</span>, <span class="string">'real measured'</span>);
+plot(cm_lams, imaged_11, <span class="string">'go'</span>, <span class="string">'DisplayName'</span>, <span class="string">'imaged measured'</span>);
+plot(cm_lams, matching_11, <span class="string">'bo'</span>, <span class="string">'DisplayName'</span>, <span class="string">'matching measured'</span>);
+
+plot(cie.lambda, real_11i, <span class="string">'r--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'real interpolated'</span>);
+plot(cie.lambda, imaged_11i, <span class="string">'g--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'imaged interpolated'</span>);
+plot(cie.lambda, matching_11i, <span class="string">'b--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'matching interpolated'</span>);
+
+title(<span class="string">'Patch 1.1 Measured and Interpolated Spectra'</span>);
+xlabel(<span class="string">'Wavelength (nm)'</span>);
+ylabel(<span class="string">'Reflectance Factor'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'best'</span>);;
+grid <span class="string">on</span>;
+xlim([380 780]);
+ylim([0 1]);
+
+<span class="comment">% Figure for patch 2</span>
+figure;
+hold <span class="string">on</span>;
+
+plot(cm_lams, real_12, <span class="string">'ro'</span>, <span class="string">'DisplayName'</span>, <span class="string">'real measured'</span>);
+plot(cm_lams, imaged_12, <span class="string">'go'</span>, <span class="string">'DisplayName'</span>, <span class="string">'imaged measured'</span>);
+plot(cm_lams, matching_12, <span class="string">'bo'</span>, <span class="string">'DisplayName'</span>, <span class="string">'matching measured'</span>);
+
+plot(cie.lambda, real_12i, <span class="string">'r--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'real interpolated'</span>);
+plot(cie.lambda, imaged_12i, <span class="string">'g--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'imaged interpolated'</span>);
+plot(cie.lambda, matching_12i, <span class="string">'b--'</span>, <span class="string">'DisplayName'</span>, <span class="string">'matching interpolated'</span>);
+
+title(<span class="string">'Patch 1.2 Measured and Interpolated Spectra'</span>);
+xlabel(<span class="string">'Wavelength (nm)'</span>);
+ylabel(<span class="string">'Reflectance Factor'</span>);
+legend(<span class="string">'Location'</span>, <span class="string">'best'</span>);
+grid <span class="string">on</span>;
+xlim([380 780]);
+ylim([0 1]);
+</pre>
+<img vspace="5" hspace="5" src="project3_03.png" alt=""> <img vspace="5" hspace="5" src="project3_04.png" alt=""> <h2 id="12">step 10</h2>
+<p>load the measured XYZ data for the patches, calculate XYZs from the interpolated spectra and print a table comparing the results</p>
+<pre class="codeinput">
+<span class="comment">% load and extract the CM measured XYZs</span>
+real = importdata(<span class="string">'1_XYZ_Labs_real.txt'</span>);
+imaged = importdata(<span class="string">'1_XYZ_Labs_imaged.txt'</span>);
+matching = importdata(<span class="string">'1_XYZ_Labs_matching.txt'</span>);
+
+XYZmeas.real_11 = real.data(1,2:4)';
+XYZmeas.imaged_11 = imaged.data(1,2:4)';
+XYZmeas.matching_11 = matching.data(1,2:4)';
+
+XYZmeas.real_12 = real.data(2,2:4)';
+XYZmeas.imaged_12 = imaged.data(2,2:4)';
+XYZmeas.matching_12 = matching.data(2,2:4)';
+
+<span class="comment">% calculate the XYZs from the spectral data</span>
+XYZcalc.real_11 = ref2XYZ(real_11i,cie.cmf2deg,cie.illD50);
+XYZcalc.imaged_11 = ref2XYZ(imaged_11i,cie.cmf2deg,cie.illD50);
+XYZcalc.matching_11 = ref2XYZ(matching_11i,cie.cmf2deg,cie.illD50);
+
+XYZcalc.real_12 = ref2XYZ(real_12i,cie.cmf2deg,cie.illD50);
+XYZcalc.imaged_12 = ref2XYZ(imaged_12i,cie.cmf2deg,cie.illD50);
+XYZcalc.matching_12 = ref2XYZ(matching_12i,cie.cmf2deg,cie.illD50);
+
+
+<span class="comment">% print formatted tables of measured and calculated XYZs for the color patches</span>
+fprintf(<span class="string">'Measured and calculated tristimulus values\n\n'</span>);
+fprintf(<span class="string">'\t\t\t patch 1.1\n'</span>);
+fprintf(<span class="string">'\t\tmeasured\t\tcalculated\n'</span>);
+fprintf(<span class="string">'\t      X\t\tY\tZ\tX\tY\t  Z\n'</span>);
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'real'</span>, <span class="keyword">...</span>
+    XYZmeas.real_11', XYZcalc.real_11');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'imaged'</span>, <span class="keyword">...</span>
+    XYZmeas.imaged_11', XYZcalc.imaged_11');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'matching'</span>, <span class="keyword">...</span>
+    XYZmeas.matching_11', XYZcalc.matching_11');
+
+fprintf(<span class="string">'\n\n'</span>);
+fprintf(<span class="string">'\t\t\t patch 1.2\n'</span>);
+fprintf(<span class="string">'\t\tmeasured\t\tcalculated\n'</span>);
+fprintf(<span class="string">'\t      X\t\tY\tZ\tX\tY\t  Z\n'</span>);
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'real'</span>, <span class="keyword">...</span>
+    XYZmeas.real_12', XYZcalc.real_12');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'imaged'</span>, <span class="keyword">...</span>
+    XYZmeas.imaged_12', XYZcalc.imaged_12');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'matching'</span>, <span class="keyword">...</span>
+    XYZmeas.matching_12', XYZcalc.matching_12');
+</pre>
+<pre class="codeoutput">Measured and calculated tristimulus values
+
+			 patch 1.1
+		measured		calculated
+	      X		Y	Z	X	Y	  Z
+    real  73.4334  75.6109  58.5145  73.4272  75.6094  58.5257
+  imaged  85.7940  88.8586  66.3455  85.7827  88.8525  66.3528
+matching  92.4689  95.0103  79.3535  92.4571  95.0145  79.3425
+
+
+			 patch 1.2
+		measured		calculated
+	      X		Y	Z	X	Y	  Z
+    real  24.7947  27.7476  18.9882  24.7922  27.7377  18.9920
+  imaged  24.1535  26.1929  18.7744  24.1542  26.1875  18.7918
+matching  40.3188  46.0387  26.3228  40.3173  46.0177  26.3524
+</pre>
+<h2 id="13">step 11</h2>
+<p>calculate measured and calculated xyYs and print a table comparing the results</p>
+<pre class="codeinput">
+<span class="comment">% calculate the xyYs from the CM measured XYZs</span>
+xyYmeas.real_11 = XYZ2xyY(XYZmeas.real_11);
+xyYmeas.imaged_11 = XYZ2xyY(XYZmeas.imaged_11);
+xyYmeas.matching_11 = XYZ2xyY(XYZmeas.matching_11);
+
+xyYmeas.real_12 = XYZ2xyY(XYZmeas.real_12);
+xyYmeas.imaged_12 = XYZ2xyY(XYZmeas.imaged_12);
+xyYmeas.matching_12 = XYZ2xyY(XYZmeas.matching_12);
+
+xyYcalc.real_11 = XYZ2xyY(XYZcalc.real_11);
+xyYcalc.imaged_11 = XYZ2xyY(XYZcalc.imaged_11);
+xyYcalc.matching_11 = XYZ2xyY(XYZcalc.matching_11);
+
+xyYcalc.real_12 = XYZ2xyY(XYZcalc.real_12);
+xyYcalc.imaged_12 = XYZ2xyY(XYZcalc.imaged_12);
+xyYcalc.matching_12 = XYZ2xyY(XYZcalc.matching_12);
+
+
+<span class="comment">% print formatted tables of measured and calculated xyYs for the color patches</span>
+fprintf(<span class="string">'\n\nMeasured and calculated chromaticity coordinates\n\n'</span>);
+fprintf(<span class="string">'\t\t\t patch 1.1\n'</span>);
+fprintf(<span class="string">'\t\tmeasured\t\tcalculated\n'</span>);
+fprintf(<span class="string">'\t      x\t\ty\tY\tx\ty\t  Y\n'</span>);
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'real'</span>, <span class="keyword">...</span>
+    xyYmeas.real_11', xyYcalc.real_11');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'imaged'</span>, <span class="keyword">...</span>
+    xyYmeas.imaged_11', xyYcalc.imaged_11');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'matching'</span>, <span class="keyword">...</span>
+    xyYmeas.matching_11', xyYcalc.matching_11');
+
+fprintf(<span class="string">'\n\n'</span>);
+fprintf(<span class="string">'\t\t\t patch 1.2\n'</span>);
+fprintf(<span class="string">'\t\tmeasured\t\tcalculated\n'</span>);
+fprintf(<span class="string">'\t      x\t\ty\tY\tx\ty\t  Y\n'</span>);
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'real'</span>, <span class="keyword">...</span>
+    xyYmeas.real_12', xyYcalc.real_12');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'imaged'</span>, <span class="keyword">...</span>
+    xyYmeas.imaged_12', xyYcalc.imaged_12');
+fprintf(<span class="string">'%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n'</span>, <span class="string">'matching'</span>, <span class="keyword">...</span>
+    xyYmeas.matching_12', xyYcalc.matching_12');
+</pre>
+<pre class="codeoutput">
+
+Measured and calculated chromaticity coordinates
+
+			 patch 1.1
+		measured		calculated
+	      x		y	Y	x	y	  Y
+    real   0.3538   0.3643  75.6109   0.3538   0.3643  75.6094
+  imaged   0.3560   0.3687  88.8586   0.3560   0.3687  88.8525
+matching   0.3465   0.3561  95.0103   0.3465   0.3561  95.0145
+
+
+			 patch 1.2
+		measured		calculated
+	      x		y	Y	x	y	  Y
+    real   0.3466   0.3879  27.7476   0.3466   0.3878  27.7377
+  imaged   0.3494   0.3789  26.1929   0.3494   0.3788  26.1875
+matching   0.3578   0.4086  46.0387   0.3578   0.4084  46.0177
+</pre>
+<h2 id="14">step 12</h2>
+<p>plot the calculated chromaticity coordinates for the patches on a chromaticity diagram</p>
+<pre class="codeinput">
+<span class="comment">% plot the chromaticity diagram skeleton</span>
+plot_chrom_diag_skel;
+
+line_weight = 1.0;
+
+
+<span class="comment">% plot the data for 1.1</span>
+x = xyYcalc.real_11(1);
+y = xyYcalc.real_11(2);
+h(1) = plot(x,y,<span class="string">'rs'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+x = xyYcalc.imaged_11(1);
+y = xyYcalc.imaged_11(2);
+h(2) = plot(x,y,<span class="string">'rd'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+x = xyYcalc.matching_11(1);
+y = xyYcalc.matching_11(2);
+h(3) = plot(x,y,<span class="string">'r+'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+
+<span class="comment">% plot the data for 1.2</span>
+x = xyYcalc.real_12(1);
+y = xyYcalc.real_12(2);
+h(4) = plot(x,y,<span class="string">'bs'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+x = xyYcalc.imaged_12(1);
+y = xyYcalc.imaged_12(2);
+h(5) = plot(x,y,<span class="string">'bd'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+x = xyYcalc.matching_12(1);
+y = xyYcalc.matching_12(2);
+h(6) = plot(x,y,<span class="string">'b+'</span>,<span class="string">'LineWidth'</span>, line_weight);
+
+legend(h, <span class="string">'1.1 real'</span>,<span class="string">'1.1 imaged'</span>, <span class="string">'1.1 matching'</span>,<span class="keyword">...</span>
+    <span class="string">'1.2 real'</span>,<span class="string">'1.2 imaged'</span>, <span class="string">'1.2 matching'</span>,<span class="string">'Location'</span>,<span class="string">'best'</span>);
+title(<span class="string">'chromaticity coordinates of 1.1 and 1.2 patches'</span>);
+</pre>
+<img vspace="5" hspace="5" src="project3_05.png" alt=""> <h2 id="15">feedback</h2>
+<p>i. Who did which parts</p>
+<p>Shakira - parts 2, 3, 6, 7, 10</p>
+<p>Hridiza - parts 4, 5, 8, 9, 11, 12, 13</p>
+<p>ii. Problems</p>
+<p>- The chromaticity plot has values that are very close together, which is making them hard to discern</p>
+<p>- Formatting the tables was challenging</p>
+<p>iii. Valuable parts</p>
+<p>- Learning how to interpret and use the measured data to gain insights</p>
+<p>iv. Improvements</p>
+<p>- A section asking us to interpret the chromaticity coordinates might be beneficial</p>
+<p class="footer">
+<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Project 3 Report
+% Team 5: Shakira Garnett, Hridiza Roy
+
+%% start clean
+
+clear all; close all; clc;
+
+
+%% step 2a
+
+% load the CIE observer and illuminant data
+cie = loadCIEdata;
+
+
+%% step 2b
+% Include listing of loadCIEdata
+%
+% <include>loadCIEdata.m</include>
+
+
+%% step 3
+% test loadCIEdata by ploting illA, D50, and D65 vs. the blackbody curves
+
+bb_2856 = blackbody(2856,cie.lambda);
+bb_5003 = blackbody(5003,cie.lambda);
+bb_6504 = blackbody(6504,cie.lambda);
+
+figure(1);
+hold on;
+
+plot(cie.lambda,bb_2856,'k', cie.lambda,bb_5003,'r', cie.lambda,bb_6504,'b', ...
+    cie.lambda,(cie.illA / 100),'REPLACE_WITH_DASH_DASHk',  cie.lambda,(cie.illD50 / 100),'REPLACE_WITH_DASH_DASHr', ...
+    cie.lambda,(cie.illD65 / 100),'REPLACE_WITH_DASH_DASHb');
+legend('blackbody (2856K)', 'blackbody (5003K)', 'blackbody (6504K)', ...
+    'illuminant A', 'illuminant D50', 'illuminant D65', 'Location','best');
+title('blackbody and standard illuminant spectra');
+xlabel('wavelength(nm)'); 
+ylabel('relative power'); 
+
+figure(2);
+hold on;
+
+plot(cie.lambda,cie.cmf2deg(:,1,:),'r', cie.lambda,cie.cmf2deg(:,2,:),'g', ...
+    cie.lambda,cie.cmf2deg(:,3,:),'b',  cie.lambda,cie.cmf10deg(:,1,:),'REPLACE_WITH_DASH_DASHr',...
+    cie.lambda,cie.cmf10deg(:,2,:),'REPLACE_WITH_DASH_DASHg',  cie.lambda,cie.cmf10deg(:,3,:),'REPLACE_WITH_DASH_DASHb');
+legend('x_b_a_r 2 deg', 'y_b_a_r 2 deg', 'z_b_a_r 2 deg', 'x_b_a_r 10 deg', ...
+    'y_b_a_r 10 deg', 'z_b_a_r 10 deg', 'Location','best');
+title('CIE standard observer CMFs');
+xlabel('wavelength(nm)'); 
+ylabel('tristimulus values'); 
+% do this for the rest of the data
+
+
+
+%% step 4
+% create ref2XYZ in the file ref2XYZ.m
+%
+% <include>ref2XYZ.m</include>
+
+
+%% step 5
+% test ref2XYZ
+
+CC_spectra = importdata('ColorChecker_380_780_5nm.txt');
+
+for patch_num = 2:25
+    CC_XYZs(:,patch_num-1) = ref2XYZ(CC_spectra(:,patch_num),cie.cmf2deg,cie.illD65);
+end
+
+CC_XYZs
+
+
+%% step 6
+% create XYZ2xyY in the file XYZ2xyY.m
+%%
+% <include>XYZ2xyY.m</include>
+
+%% step 7
+% test XYZ2xyY
+
+CC_xyYs = XYZ2xyY(CC_XYZs)
+
+
+%% step 8
+% load the spectral data for the color patches
+
+% define ColorMunki/Argyll/spotread measurement wavelengths 
+cm_lams = 380:10:730;
+
+cm_h_offset_im = 18;
+cm_h_offset_r = 19;
+
+% load and normalize the measured spectral data for the patch #1
+data = importdata('1.1_real.sp', ' ', cm_h_offset_r);
+real_11 = data.data/100;
+data = importdata('1.1_imaged.sp', ' ', cm_h_offset_im);
+imaged_11 = data.data/100;
+data = importdata('1.1_matching.sp', ' ', cm_h_offset_im);
+matching_11 = data.data/100;
+
+% repeat for patch #2
+data = importdata('1.2_real.sp', ' ', cm_h_offset_r);
+real_12 = data.data/100;
+data = importdata('1.2_imaged.sp', ' ', cm_h_offset_im);
+imaged_12 = data.data/100;
+data = importdata('1.2_matching.sp', ' ', cm_h_offset_im);
+matching_12 = data.data/100;
+
+
+%% step 9
+% interpolate and plot the original and interpolated data
+
+% interpolate/extrapolate the CM spectral data to 380-780, 5nm
+
+% Patch #1
+real_11i = interp1(cm_lams, real_11, cie.lambda, 'linear', 'extrap');
+imaged_11i = interp1(cm_lams, imaged_11, cie.lambda, 'linear', 'extrap');
+matching_11i = interp1(cm_lams, matching_11, cie.lambda, 'linear', 'extrap');
+
+% Patch #2
+real_12i = interp1(cm_lams, real_12, cie.lambda, 'linear', 'extrap');
+imaged_12i = interp1(cm_lams, imaged_12, cie.lambda, 'linear', 'extrap');
+matching_12i = interp1(cm_lams, matching_12, cie.lambda, 'linear', 'extrap');
+
+% create a figure for patch #1 that confirms the process
+figure; 
+hold on;
+
+plot(cm_lams, real_11, 'ro', 'DisplayName', 'real measured');
+plot(cm_lams, imaged_11, 'go', 'DisplayName', 'imaged measured');
+plot(cm_lams, matching_11, 'bo', 'DisplayName', 'matching measured');
+
+plot(cie.lambda, real_11i, 'rREPLACE_WITH_DASH_DASH', 'DisplayName', 'real interpolated');
+plot(cie.lambda, imaged_11i, 'gREPLACE_WITH_DASH_DASH', 'DisplayName', 'imaged interpolated');
+plot(cie.lambda, matching_11i, 'bREPLACE_WITH_DASH_DASH', 'DisplayName', 'matching interpolated');
+
+title('Patch 1.1 Measured and Interpolated Spectra');
+xlabel('Wavelength (nm)');
+ylabel('Reflectance Factor');
+legend('Location', 'best');;
+grid on;
+xlim([380 780]);
+ylim([0 1]);
+
+% Figure for patch 2
+figure;
+hold on;
+
+plot(cm_lams, real_12, 'ro', 'DisplayName', 'real measured');
+plot(cm_lams, imaged_12, 'go', 'DisplayName', 'imaged measured');
+plot(cm_lams, matching_12, 'bo', 'DisplayName', 'matching measured');
+
+plot(cie.lambda, real_12i, 'rREPLACE_WITH_DASH_DASH', 'DisplayName', 'real interpolated');
+plot(cie.lambda, imaged_12i, 'gREPLACE_WITH_DASH_DASH', 'DisplayName', 'imaged interpolated');
+plot(cie.lambda, matching_12i, 'bREPLACE_WITH_DASH_DASH', 'DisplayName', 'matching interpolated');
+
+title('Patch 1.2 Measured and Interpolated Spectra');
+xlabel('Wavelength (nm)');
+ylabel('Reflectance Factor');
+legend('Location', 'best');
+grid on;
+xlim([380 780]);
+ylim([0 1]);
+
+
+%% step 10
+% load the measured XYZ data for the patches, calculate XYZs from the
+% interpolated spectra and print a table comparing the results
+
+% load and extract the CM measured XYZs
+real = importdata('1_XYZ_Labs_real.txt');
+imaged = importdata('1_XYZ_Labs_imaged.txt');
+matching = importdata('1_XYZ_Labs_matching.txt');
+
+XYZmeas.real_11 = real.data(1,2:4)';
+XYZmeas.imaged_11 = imaged.data(1,2:4)';
+XYZmeas.matching_11 = matching.data(1,2:4)';
+
+XYZmeas.real_12 = real.data(2,2:4)';
+XYZmeas.imaged_12 = imaged.data(2,2:4)';
+XYZmeas.matching_12 = matching.data(2,2:4)';
+
+% calculate the XYZs from the spectral data
+XYZcalc.real_11 = ref2XYZ(real_11i,cie.cmf2deg,cie.illD50);
+XYZcalc.imaged_11 = ref2XYZ(imaged_11i,cie.cmf2deg,cie.illD50);
+XYZcalc.matching_11 = ref2XYZ(matching_11i,cie.cmf2deg,cie.illD50);
+
+XYZcalc.real_12 = ref2XYZ(real_12i,cie.cmf2deg,cie.illD50);
+XYZcalc.imaged_12 = ref2XYZ(imaged_12i,cie.cmf2deg,cie.illD50);
+XYZcalc.matching_12 = ref2XYZ(matching_12i,cie.cmf2deg,cie.illD50);
+
+
+% print formatted tables of measured and calculated XYZs for the color patches
+fprintf('Measured and calculated tristimulus values\n\n');
+fprintf('\t\t\t patch 1.1\n');
+fprintf('\t\tmeasured\t\tcalculated\n');
+fprintf('\t      X\t\tY\tZ\tX\tY\t  Z\n');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'real', ...
+    XYZmeas.real_11', XYZcalc.real_11');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'imaged', ...
+    XYZmeas.imaged_11', XYZcalc.imaged_11');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'matching', ...
+    XYZmeas.matching_11', XYZcalc.matching_11');
+
+fprintf('\n\n');
+fprintf('\t\t\t patch 1.2\n');
+fprintf('\t\tmeasured\t\tcalculated\n');
+fprintf('\t      X\t\tY\tZ\tX\tY\t  Z\n');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'real', ...
+    XYZmeas.real_12', XYZcalc.real_12');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'imaged', ...
+    XYZmeas.imaged_12', XYZcalc.imaged_12');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'matching', ...
+    XYZmeas.matching_12', XYZcalc.matching_12');
+
+
+
+
+
+
+
+
+%% step 11
+% calculate measured and calculated xyYs and print a table comparing the
+% results
+
+% calculate the xyYs from the CM measured XYZs
+xyYmeas.real_11 = XYZ2xyY(XYZmeas.real_11);
+xyYmeas.imaged_11 = XYZ2xyY(XYZmeas.imaged_11);
+xyYmeas.matching_11 = XYZ2xyY(XYZmeas.matching_11);
+
+xyYmeas.real_12 = XYZ2xyY(XYZmeas.real_12);
+xyYmeas.imaged_12 = XYZ2xyY(XYZmeas.imaged_12);
+xyYmeas.matching_12 = XYZ2xyY(XYZmeas.matching_12);
+
+xyYcalc.real_11 = XYZ2xyY(XYZcalc.real_11);
+xyYcalc.imaged_11 = XYZ2xyY(XYZcalc.imaged_11);
+xyYcalc.matching_11 = XYZ2xyY(XYZcalc.matching_11);
+
+xyYcalc.real_12 = XYZ2xyY(XYZcalc.real_12);
+xyYcalc.imaged_12 = XYZ2xyY(XYZcalc.imaged_12);
+xyYcalc.matching_12 = XYZ2xyY(XYZcalc.matching_12);
+
+
+% print formatted tables of measured and calculated xyYs for the color patches
+fprintf('\n\nMeasured and calculated chromaticity coordinates\n\n');
+fprintf('\t\t\t patch 1.1\n');
+fprintf('\t\tmeasured\t\tcalculated\n');
+fprintf('\t      x\t\ty\tY\tx\ty\t  Y\n');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'real', ...
+    xyYmeas.real_11', xyYcalc.real_11');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'imaged', ...
+    xyYmeas.imaged_11', xyYcalc.imaged_11');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'matching', ...
+    xyYmeas.matching_11', xyYcalc.matching_11');
+
+fprintf('\n\n');
+fprintf('\t\t\t patch 1.2\n');
+fprintf('\t\tmeasured\t\tcalculated\n');
+fprintf('\t      x\t\ty\tY\tx\ty\t  Y\n');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'real', ...
+    xyYmeas.real_12', xyYcalc.real_12');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'imaged', ...
+    xyYmeas.imaged_12', xyYcalc.imaged_12');
+fprintf('%8s% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f% 9.4f\n', 'matching', ...
+    xyYmeas.matching_12', xyYcalc.matching_12');
+
+
+
+%% step 12
+% plot the calculated chromaticity coordinates for the patches on a
+% chromaticity diagram
+
+% plot the chromaticity diagram skeleton
+plot_chrom_diag_skel;
+
+line_weight = 1.0;
+
+
+% plot the data for 1.1
+x = xyYcalc.real_11(1);
+y = xyYcalc.real_11(2);
+h(1) = plot(x,y,'rs','LineWidth', line_weight); 
+
+x = xyYcalc.imaged_11(1);
+y = xyYcalc.imaged_11(2);
+h(2) = plot(x,y,'rd','LineWidth', line_weight); 
+
+x = xyYcalc.matching_11(1);
+y = xyYcalc.matching_11(2);
+h(3) = plot(x,y,'r+','LineWidth', line_weight); 
+
+
+% plot the data for 1.2
+x = xyYcalc.real_12(1);
+y = xyYcalc.real_12(2);
+h(4) = plot(x,y,'bs','LineWidth', line_weight); 
+
+x = xyYcalc.imaged_12(1);
+y = xyYcalc.imaged_12(2);
+h(5) = plot(x,y,'bd','LineWidth', line_weight); 
+
+x = xyYcalc.matching_12(1);
+y = xyYcalc.matching_12(2);
+h(6) = plot(x,y,'b+','LineWidth', line_weight); 
+
+legend(h, '1.1 real','1.1 imaged', '1.1 matching',...
+    '1.2 real','1.2 imaged', '1.2 matching','Location','best');
+title('chromaticity coordinates of 1.1 and 1.2 patches');
+
+
+
+%% feedback
+% i. Who did which parts
+%
+% Shakira - parts 2, 3, 6, 7, 10
+%
+% Hridiza - parts 4, 5, 8, 9, 11, 12, 13
+%
+%
+% ii. Problems
+%
+% - The chromaticity plot has values that are very close together, which is making them hard to discern
+%
+% - Formatting the tables was challenging
+%
+% 
+% iii. Valuable parts
+%
+% - Learning how to interpret and use the measured data to gain insights
+%
+%
+% iv. Improvements
+%
+% - A section asking us to interpret the chromaticity coordinates might be beneficial
+
+
+
+
+
+
+
+##### SOURCE END #####
+-->
+</body>
+</html>
