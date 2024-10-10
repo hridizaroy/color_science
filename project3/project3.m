@@ -130,13 +130,13 @@ figure;
 hold on;
 line_weight = 1.5;
 
-plot(cm_lams, real_11, 'ro', 'DisplayName', 'real measured');
-plot(cm_lams, imaged_11, 'go', 'DisplayName', 'imaged measured');
-plot(cm_lams, matching_11, 'bo', 'DisplayName', 'matching measured');
+plot(cm_lams, real_11, 'ro', 'DisplayName', 'real measured', 'LineWidth', line_weight);
+plot(cm_lams, imaged_11, 'go', 'DisplayName', 'imaged measured', 'LineWidth', line_weight);
+plot(cm_lams, matching_11, 'bo', 'DisplayName', 'matching measured', 'LineWidth', line_weight);
 
-plot(cie.lambda, real_11i, 'r--', 'DisplayName', 'real interpolated');
-plot(cie.lambda, imaged_11i, 'g--', 'DisplayName', 'imaged interpolated');
-plot(cie.lambda, matching_11i, 'b--', 'DisplayName', 'matching interpolated');
+plot(cie.lambda, real_11i, 'r--', 'DisplayName', 'real interpolated', 'LineWidth', line_weight);
+plot(cie.lambda, imaged_11i, 'g--', 'DisplayName', 'imaged interpolated', 'LineWidth', line_weight);
+plot(cie.lambda, matching_11i, 'b--', 'DisplayName', 'matching interpolated', 'LineWidth', line_weight);
 
 title('Patch 1.1 Measured and Interpolated Spectra');
 xlabel('Wavelength (nm)');
@@ -150,13 +150,13 @@ figure;
 hold on;
 line_weight = 1.5;
 
-plot(cm_lams, real_12, 'ro', 'DisplayName', 'real measured');
-plot(cm_lams, imaged_12, 'go', 'DisplayName', 'imaged measured');
-plot(cm_lams, matching_12, 'bo', 'DisplayName', 'matching measured');
+plot(cm_lams, real_12, 'ro', 'DisplayName', 'real measured', 'LineWidth', line_weight);
+plot(cm_lams, imaged_12, 'go', 'DisplayName', 'imaged measured', 'LineWidth', line_weight);
+plot(cm_lams, matching_12, 'bo', 'DisplayName', 'matching measured', 'LineWidth', line_weight);
 
-plot(cie.lambda, real_12i, 'r--', 'DisplayName', 'real interpolated');
-plot(cie.lambda, imaged_12i, 'g--', 'DisplayName', 'imaged interpolated');
-plot(cie.lambda, matching_12i, 'b--', 'DisplayName', 'matching interpolated');
+plot(cie.lambda, real_12i, 'r--', 'DisplayName', 'real interpolated', 'LineWidth', line_weight);
+plot(cie.lambda, imaged_12i, 'g--', 'DisplayName', 'imaged interpolated', 'LineWidth', line_weight);
+plot(cie.lambda, matching_12i, 'b--', 'DisplayName', 'matching interpolated', 'LineWidth', line_weight);
 
 title('Patch 1.2 Measured and Interpolated Spectra');
 xlabel('Wavelength (nm)');
