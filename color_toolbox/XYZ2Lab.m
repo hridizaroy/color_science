@@ -9,29 +9,23 @@ function Lab = XYZ2Lab(XYZ, XYZn)
     Z_n = XYZn(3,:,:);
 
     % calculate chromaticitity coords
-    L = 116 * f(Y ./ Y_n) - 16;
-    a = 500 * (f(X ./ X_n) - f(Y ./ Y_n));
-    b = 200 * (f(Y ./ Y_n) - f(Z ./ Z_n));
+    Y_ratio = Y ./ Y_n;
+    L = 116 * ((Y_ratio > 0.008856) .* Y_ratio.^(1/3) + (Y_ratio <= 0.008856) ...
+        .* (7.787 * Y_ratio + (16/116))) - 16;
 
-    % reconstruct & return xyY matrix
+    % a calculation
+    X_ratio = X ./ X_n;
+    a = 500 * (((X_ratio > 0.008856) .* X_ratio.^(1/3) + (X_ratio <= 0.008856) ...
+        .* (7.787 * X_ratio)) - ((Y_ratio > 0.008856) .* Y_ratio.^(1/3) + ...
+        (Y_ratio <= 0.008856) .* (7.787 * Y_ratio)));
+
+    % b calculation
+    Z_ratio = Z ./ Z_n;
+    b = 200 * (((Y_ratio > 0.008856) .* Y_ratio.^(1/3) + (Y_ratio <= 0.008856) ...
+        .* (7.787 * Y_ratio)) - ((Z_ratio > 0.008856) .* Z_ratio.^(1/3) + ...
+        (Z_ratio <= 0.008856) .* (7.787 * Z_ratio)));
+
+    % reconstruct & return LAB matrix
     Lab = [L;a;b];
 
-end
-
-function helper_out = f(inputVector)
-    % This function takes a 1xn row vector and transforms it
-    % If an element is greater than 0.008856, it replaces the value with its cube root
-    % Otherwise, it replaces the value with 7.787 * value + 16/116
-    
-    % Initialize the helper_out vector with the same size as input
-    helper_out = zeros(size(inputVector));
-    
-    % Iterate through each element in the input vector
-    for i = 1:length(inputVector)
-        if inputVector(i) > 0.008856
-            helper_out(i) = inputVector(i)^(1/3);
-        else
-            helper_out(i) = 7.787 * inputVector(i) + (16/116);  
-        end
-    end
 end
