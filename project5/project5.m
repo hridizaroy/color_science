@@ -1,16 +1,28 @@
-% code for question 3
-cam_RGBs = [83, 196,  86,  68, 125, 109, 199,  31, 196,  50, 166, 222,   6,  58, 166, 237, 186,  11, 219, 188, 152, 102,  44,   5;...
-    47,146,112, 87,125,189,104, 55, 68, 13,196,163,  4,126, 20,204, 64,113,218,188,151,102, 46,  8;...
-    28,119,156, 36,177,165, 27,151, 79, 65, 41, 45,113, 43, 29, 47,139,154,213,185,149, 99, 47, 16];
+%% Project 5 Report
+% Team 5: Shakira Garnett, Hridiza Roy
+
+%% Initialization
+clear all; close all; clc;
+
+% load the CIE observer and illuminant data
+cie = loadCIEdata;
+
+%% Step 3
+cam_RGBs = [83, 196,  86,  68, 125, 109, 199,  31, 196,  50, 166, 222, 6, 58,...
+            166, 237, 186,  11, 219, 188, 152, 102,  44,   5;...
+            47,146,112, 87,125,189,104, 55, 68, 13,196,163, 4,126, 20, 204,...
+            64,113,218,188,151,102, 46, 8; 28,119,156, 36,177,165, 27, 151,...
+            79, 65, 41, 45,113, 43, 29, 47,139,154,213,185,149, 99, 47, 16];
 
 cam_rgbs = cam_RGBs / 255;
 
 cam_gray_rgbs = cam_rgbs(:, 19:24);
 
 
-% code for question 4
+%% Step 4
+
 % Load the data
-data = load('../color_toolbox/munki_CC_XYZs_Labs.txt');
+data = load('munki_CC_XYZs_Labs.txt');
 
 % Separate into XYZ and Lab arrays
 munki_XYZs = data(:, 2:4)';   % Columns 2-4 for XYZ values, transpose to make it 3x24
@@ -25,7 +37,8 @@ normalized_gray_Ys = gray_Y_values / 100;
 % Flip the vector so it runs from low (black) to high (white)
 munki_gray_Ys = fliplr(normalized_gray_Ys);
 
-% code for question 5
+%% Step 5
+
 % Plot the Tone Transfer Functions (TTFs)
 figure;
 hold on;
@@ -42,7 +55,8 @@ title('original grayscale Y to RGB relationship');
 grid on;
 hold off;
 
-% code for question 6
+%% Step 6
+
 % Define indices for color channels
 r = 1; g = 2; b = 3;
 % a) fit low-order polynomial functions between normalized
@@ -58,7 +72,8 @@ cam_RSs(b,:) = polyval(cam_polys(b,:),cam_rgbs(b,:));
 cam_RSs(cam_RSs<0) = 0;
 cam_RSs(cam_RSs>1) = 1;
 
-% code for question 7
+%% Step 7
+
 % Extract radiometric scalars for gray patches (#19-24)
 gray_RSs = cam_RSs(:, 19:24);
 
@@ -78,7 +93,8 @@ title('linearized grayscale Y to RGB relationship');
 grid on;
 hold off;
 
-% code for question 8
+%% Step 8
+
 % visualize the original camera RGBs
 pix = reshape(cam_rgbs', [6 4 3]);
 pix = uint8(pix*255);
@@ -97,26 +113,122 @@ figure;
 image(pix);
 title('linearized camera patch RGBs');
 
-% code for question 9
+%% Step 9
+
 % use the munki-measured ColorChecker XYZs and camera-captured RGB RSs to
 % derive a 3x3 matrix that can be used to estimate XYZs from camera RGBs
-cam_matrix3x3 = munki_XYZs * pinv(cam_RSs);
+cam_matrix3x3 = munki_XYZs * pinv(cam_RSs)
 
-% resulting matrix needed for report 
-% cam_matrix3x3 =
+%% Step 10
 
-%    42.1733   25.5418   22.5755
-%    20.8446   56.9833   16.4482
-%    -1.4126    3.9189   77.4845
-
-% code for question 10
 % estimate the ColorChecker XYZs from the linearized camera rgbs using
 % the 3x3 camera matrix
-cam_XYZs = cam_matrix3x3 * cam_RSs;
+cam_XYZs = cam_matrix3x3 * cam_RSs
 
-% resulting matrix needed for report
-% cam_XYZs =
+%% Step 11
 
-%     9.9881   40.6913   20.2649   10.9455   28.1071   33.2503   34.4405   13.9377   33.8050    8.1306   36.5103   51.2355    6.5105   13.0420   20.6221   62.9629   33.5519   15.3683   79.5116   52.4961   31.3031   16.4578    8.5953    2.4104
-%     9.5310   35.6141   21.1540   12.6487   27.3932   44.9620   25.6034   13.5392   23.0515    6.3807   47.4240   43.9657    5.0990   17.8175   12.8482   63.9356   23.4835   18.7891   82.9864   54.9025   32.6103   17.1957    8.9872    2.5133
-%     4.6532   18.1834   30.0899    6.3029   40.8227   35.6976    4.0742   27.7568   11.0148    9.7830    8.6113    7.5458   16.6086    7.7552    4.2740    8.9579   22.8486   29.4141   70.3343   46.7538   27.5271   14.6003    7.7570    2.0393
+% convert XYZ to Lab
+XYZ_D50 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD50);
+lab_D50_Cam = XYZ2Lab(cam_XYZs, XYZ_D50);
+
+% Calculate deltaEab
+DEab_D50 = deltaEab(lab_D50_Cam, munki_Labs);
+
+% print table
+print_camera_model_error(munki_Labs, lab_D50_Cam, DEab_D50)
+
+%% Step 12
+
+% split the radiometric scalars (cam_RSs) into r,g,b vectors
+RSrgbs = cam_RSs;
+RSrs = RSrgbs(1,:);
+RSgs = RSrgbs(2,:);
+RSbs = RSrgbs(3,:);
+
+% create vectors of these RSs with multiplicative terms to
+% represent interactions and square terms to represent non-linearities in
+% the RGB-to-XYZ relationship
+RSrgbs_extd = [RSrgbs; RSrs.*RSgs; RSrs.*RSbs; RSgs.*RSbs; RSrs.*RSgs.*RSbs; ...
+RSrs.^2; RSgs.^2; RSbs.^2; ones(1,size(RSrgbs,2))];
+
+% find the extended (3x11) matrix that relates the RS and XYZ datasets
+cam_matrix3x11 = munki_XYZs * pinv(RSrgbs_extd)
+
+%% Step 13
+
+% estimate XYZs from the RSs using the extended matrix and RS representation
+cam_XYZs_estimated = cam_matrix3x11 * RSrgbs_extd
+
+%% Step 14
+
+% Calculate XYZ values for cam_XYZs
+XYZ_D50 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD50);
+lab_D50_Cam_estimated = XYZ2Lab(cam_XYZs_estimated, XYZ_D50);
+
+% Calculate deltaEab
+DEab = deltaEab(lab_D50_Cam_estimated, munki_Labs);
+
+% Print table
+print_extended_camera_model_error(munki_Labs, lab_D50_Cam_estimated, DEab)
+
+%% Step 15
+
+% save the (extended) camera model for use in later projects
+save('cam_model.mat', 'cam_polys', 'cam_matrix3x11');
+
+%% Step 16
+% Include a listing of the camRGB2XYZ function
+%
+% <include>camRGB2XYZ.m</include>
+
+% test that the camRGB2XYZ function works correctly
+cam_XYZs = camRGB2XYZ('cam_model.mat', cam_RGBs)
+
+%% Step 17
+XYZ_D65 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD65);
+
+% visualize the munki-measured XYZs as an sRGB image
+munki_XYZs_D65 = catBradford(munki_XYZs, XYZ_D50, XYZ_D65);
+munki_XYZs_sRGBs = XYZ2sRGB(munki_XYZs_D65);
+pix = reshape(munki_XYZs_sRGBs', [6 4 3]);
+pix = uint8(pix*255);
+pix = imrotate(pix, -90);
+pix = flipdim(pix,2);
+figure;
+image(pix);
+title('munki XYZs chromatically adapted and visualized in sRGB');
+
+% visualize the camera-estimated XYZs as an sRGB image
+cam_XYZs_D65 = catBradford(cam_XYZs, XYZ_D50, XYZ_D65);
+cam_XYZs_sRGBs = XYZ2sRGB(cam_XYZs_D65);
+pix = reshape(cam_XYZs_sRGBs', [6 4 3]);
+pix = uint8(pix*255);
+pix = imrotate(pix, -90);
+pix = flipdim(pix,2);
+figure;
+image(pix);
+title('estimated XYZs chromatically adapted and visualized in sRGB');
+
+%% Feedback
+% i. Who did which parts
+%
+% Shakira - parts 2 - 10
+%
+% Hridiza - parts 1, 11 - 18
+%
+%
+% ii. Problems
+%
+% - No issues with this project
+%
+% 
+% iii. Valuable parts
+%
+% - Learning how to compare estimated and measured XYZ values in practice
+%
+% - Practically seeing how the estimation models work
+%
+%
+% iv. Improvements
+%
+% - Perhaps there were slightly too many hints for the code for this project
