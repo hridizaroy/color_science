@@ -1,17 +1,16 @@
-cd ../color_toolbox/
+%% Project 6 Report
+% Team 5: Shakira Garnett, Hridiza Roy
 
-% code for question 3
+%% Initialization
+clear all; close all; clc;
+
+% load the CIE observer and illuminant data
+cie = loadCIEdata;
+
+%% Step 3
 load_ramps_data;
 
-% UNCOMMENT TO DISPLAY DATA FROM load_ramps_data
-% XYZk
-% XYZw
-% ramp_R_XYZs
-% ramp_B_XYZs
-% ramp_G_XYZs
-% ramp_N_XYZs
-
-% code for question 4
+%% Step 4
 x_rmax = ramp_R_XYZs(1, 11);
 x_gmax = ramp_G_XYZs(1, 11);
 x_bmax = ramp_B_XYZs(1, 11);
@@ -32,31 +31,13 @@ y_w = XYZw(2);
 
 M_fwd = [ x_rmax - x_k, x_gmax - x_k, x_bmax - x_k, x_k; ...
           y_rmax - y_k, y_gmax - y_k, y_bmax - y_k, y_k; ...
-          z_rmax - z_k, z_gmax - z_k, z_bmax - z_k, z_k ] ./ y_w;
+          z_rmax - z_k, z_gmax - z_k, z_bmax - z_k, z_k ] ./ y_w
 
-% Resulting matrix to show in report
-% M_fwd =
+%% Step 5
+M_inv = inv(M_fwd(1:3,1:3));
 
-%     0.4992    0.2803    0.1413    0.0011
-%     0.2371    0.7181    0.0502    0.0010
-%     0.0006    0.0412    0.7446    0.0027
-
-% code for question 5
-% way he says to do it in write-up but is potentially slower and less accurate
-% then using "\" operator
-% M_inv = inv(M_fwd(1:3,1:3));
-% RSs = M_inv * ( (ramp_R_XYZs - XYZk) / y_w )
-
-ramp_R_RSs = M_fwd(1:3,1:3) \ ((ramp_R_XYZs - XYZk) / y_w );
-
-for i = 1:numel(ramp_R_RSs)
-    e = ramp_R_RSs(i);
-    if e < 0
-        e = 0;
-    elseif e > 1
-        e = 1;
-    end
-end
+ramp_R_RSs = M_inv * ( (ramp_R_XYZs - XYZk) / y_w );
+ramp_R_RSs = max(min(ramp_R_RSs, 1), 0); % clamp
 
 % define the 0-255 display values (digital counts) that correspond to ramp values
 ramp_DCs = round(linspace(0,255,11));
@@ -64,32 +45,16 @@ ramp_DCs = round(linspace(0,255,11));
 % interpolate the radiometric scalars across the full digital count range to form the forward LUTS
 RLUT_fwd = interp1(ramp_DCs,ramp_R_RSs(1,:),[0:1:255],'pchip');
 
-ramp_G_RSs = M_fwd(1:3,1:3) \ ((ramp_G_XYZs - XYZk) / y_w );
+ramp_G_RSs = M_inv * ( (ramp_G_XYZs - XYZk) / y_w );
+ramp_G_RSs = max(min(ramp_G_RSs, 1), 0);
 
-for i = 1:numel(ramp_G_RSs)
-    e = ramp_G_RSs(i);
-    if e < 0
-        e = 0;
-    elseif e > 1
-        e = 1;
-    end
-end
+% Repeat for green
+GLUT_fwd = interp1(ramp_DCs,ramp_G_RSs(2,:), [0:1:255],'pchip');
 
-% interpolate the radiometric scalars across the full digital count range to form the forward LUTS
-GLUT_fwd = interp1(ramp_DCs,ramp_G_RSs(2,:),[0:1:255],'pchip');
+ramp_B_RSs = M_inv * ( (ramp_B_XYZs - XYZk) / y_w );
+ramp_B_RSs = max(min(ramp_B_RSs, 1), 0);
 
-ramp_B_RSs = M_fwd(1:3,1:3) \ ((ramp_B_XYZs - XYZk) / y_w );
-
-for i = 1:numel(ramp_B_RSs)
-    e = ramp_B_RSs(i);
-    if e < 0
-        e = 0;
-    elseif e > 1
-        e = 1;
-    end
-end
-
-% interpolate the radiometric scalars across the full digital count range to form the forward LUTS
+% Repeat for blue
 BLUT_fwd = interp1(ramp_DCs,ramp_B_RSs(3,:),[0:1:255],'pchip');
 
 figure;
@@ -107,10 +72,10 @@ title('forward model LUTs');
 grid on;
 hold off;
 
-% question 6
-M_rev = inv(M_fwd(1:3,1:3));
+%% Step 6
+M_rev = inv(M_fwd(1:3,1:3))
 
-% question 7
+%% Step 7
 RLUT_rev = uint8(round(interp1(RLUT_fwd, 0:255, linspace(0,max(RLUT_fwd),1024), 'pchip', 0)));
 GLUT_rev = uint8(round(interp1(GLUT_fwd, 0:255, linspace(0,max(GLUT_fwd),1024), 'pchip', 0)));
 BLUT_rev = uint8(round(interp1(BLUT_fwd, 0:255, linspace(0,max(BLUT_fwd),1024), 'pchip', 0)));
@@ -130,7 +95,7 @@ title('reverse model LUTs');
 grid on;
 hold off;
 
-% question 8
+%% Step 8
 XYZw_disp = XYZw;
 XYZk_disp = XYZk;
 M_disp = M_rev;
@@ -139,9 +104,9 @@ GLUT_disp = GLUT_rev;
 BLUT_disp = BLUT_rev;
 save('display_model.mat','XYZw_disp', 'XYZk_disp','M_disp','RLUT_disp','GLUT_disp','BLUT_disp');
 
-% question 9
+%% Step 9
+
 % Load the data
-cie = loadCIEdata;
 data = load('munki_CC_XYZs_Labs.txt');
 
 XYZn_D50 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD50);
@@ -155,7 +120,7 @@ adjusted_XYZs_disp = munki_XYZs_disp - XYZk_disp;
 
 munki_CC_RSs = (M_disp * adjusted_XYZs_disp) ./ 100;
 
-munki_CC_RSs = max(0, min(1, munki_CC_RSs));
+munki_CC_RSs = max(min(munki_CC_RSs, 1), 0);
 
 munki_CC_RSs_scaled = round(munki_CC_RSs * 1023 + 1);
 
@@ -168,7 +133,57 @@ pix = uint8(reshape(munki_CC_DCs', [6 4 3]));
 pix = fliplr(imrotate(pix, -90));
 figure;
 image(pix);
-set(gca, 'FontSize',12);
+set(gca, 'FontSize', 11)
 title('colorchecker rendered from measured XYZs using the display model');
 
-cd ../project6/
+%% Step 10
+munki_CC_DCs = uint8(double(munki_CC_DCs) * 100/255);
+table4ti1 = [(1:30)', [munki_CC_DCs'; zeros(3, 3); 100 * ones(3, 3)] ];
+
+disp_XYZs = importdata('disp_model_test.ti3',' ', 20);
+
+CC_patches_XYZ = disp_XYZs.data(1:24, 5:7);
+disp_black_XYZ = disp_XYZs.data(25:27, 5:7);
+disp_whiteXYZ = disp_XYZs.data(28:30, 5:7);
+
+XYZk = mean(disp_black_XYZ, 1);
+XYZw = mean(disp_whiteXYZ, 1);
+
+display_Labs = XYZ2Lab(CC_patches_XYZ', XYZw');
+DEab = deltaEab(display_Labs, munki_Labs);
+
+% print table
+print_display_model_error(munki_Labs, display_Labs, DEab);
+
+%% Step 11
+% Include a listing of the XYZ2dispRGB function
+%
+% <include>XYZ2dispRGB.m</include>
+disp_RGBs = XYZ2dispRGB('display_model.mat', munki_XYZs, XYZn_D50);
+
+%% Feedback
+% i. Who did which parts
+%
+% Shakira - 3, 4, 5, 6, 7, 8, 9
+%
+% Hridiza - 1, 2, 5 (minor), 9 (minor), 10, 11, 12
+%
+%
+% ii. Problems
+%
+% - Keeping the matrix dimensions in mind, and figuring out when to transpose
+%
+% - Images were getting clipped when trying to publish
+%
+% 
+% iii. Valuable parts
+%
+% - The "Info only" sections that gave more context about what we were doing
+%
+% - Learning how to practically derive LUTs and create reverse models
+%
+%
+% iv. Improvements
+%
+% - Minor: Perhaps we should test that the output from XYZ2dispRGB (disp_RGBs) is as expected
+% (Currently we are just testing the plot)
