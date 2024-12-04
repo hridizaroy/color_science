@@ -9,6 +9,34 @@ END_DATA_FORMAT
 
 NUMBER_OF_SETS 30
 BEGIN_DATA
-*** Remove these lines and paste your data here between BEGIN_DATA and END_DATA ***
-*** Make sure there are no blank lines between BEGIN_DATA and END_DATA ***
+1	33	18	11
+2	77	57	47
+3	34	44	61
+4	27	34	14
+5	49	49	69
+6	43	74	65
+7	78	41	11
+8	12	22	59
+9	77	27	31
+10	20	5	25
+11	65	77	16
+12	87	64	18
+13	2	2	44
+14	23	49	17
+15	65	8	11
+16	93	80	18
+17	73	25	55
+18	4	44	60
+19	86	85	84
+20	74	74	73
+21	60	59	58
+22	40	40	39
+23	17	18	18
+24	2	3	6
+25	0	0	0
+26	0	0	0
+27	0	0	0
+28	100	100	100
+29	100	100	100
+30	100	100	100
 END_DATA
