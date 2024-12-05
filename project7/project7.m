@@ -4,6 +4,8 @@
 %% Initialization
 clear all; close all; clc;
 
+cd ../color_toolbox/
+
 % load the CIE observer and illuminant data
 cie = loadCIEdata;
 
@@ -80,7 +82,7 @@ munki_RGBs_uint8 = uint8(double(munki_RGBs) * 255);
 top_row = reshape([munki_RGBs_uint8'; munki_RGBs_uint8'], [3, 48])';
 
 % combine calibrated and uncalibrated data in an alternating fashion
-bottom_row = reshape([cam_RGBs_orig; disp_RGBs_orig], [3, 48])'
+bottom_row = reshape([cam_RGBs_orig; disp_RGBs_orig], [3, 48])';
 
 workflow_diffs = pagetranspose(reshape([reshape(top_row, [12, 4, 3]); reshape(bottom_row, [12, 4, 3])], [12, 8, 3]));
 
@@ -99,28 +101,29 @@ imwrite(workflow_diffs_resized, 'workflow_diffs.png');
 
 %% Step 4
 % Load the original ColorChecker image
-% img_orig = imread("chart.jpg");
+img_orig = imread("chart.jpg");
 
-% % Reshape the image into a pixel vector
-% [r, c, p] = size(img_orig);  % Get the dimensions of the image
-% pix_orig = reshape(img_orig, [r*c, p])';  % Reshape to 3x(rows*cols)
+% Reshape the image into a pixel vector
+[r, c, p] = size(img_orig);  % Get the dimensions of the image
+pix_orig = reshape(img_orig, [r*c, p])';  % Reshape to 3x(rows*cols)
 
-% % Process the pixels through camRGB2XYZ and XYZ2dispRGB
-% % camRGB2XYZ is assumed to take the RGB values and convert to XYZ
-% % save the (extended) camera model for use in later projects
-% save('cam_model.mat', 'cam_polys', 'cam_matrix3x11');
-% pix_XYZ = camRGB2XYZ('cam_model.mat', pix_orig');  % Convert RGB to XYZ, pix_orig' is 3xN
+pix_XYZ = camRGB2XYZ('cam_model.mat', pix_orig);  % Convert RGB to XYZ, pix_orig' is 3xN
 
-% % XYZ2dispRGB will take the XYZ values and convert to calibrated RGB
-% pix_DCs_calib = XYZ2dispRGB(pix_XYZ);  % Convert XYZ to color-calibrated RGB
+XYZn_D50 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD50);
 
-% % Reshape the processed pixels back into an image
-% img_calib = reshape(pix_DCs_calib', [r, c, p]);  % Reshape back to original dimensions
+% XYZ2dispRGB will take the XYZ values and convert to calibrated RGB
+pix_DCs_calib = XYZ2dispRGB('display_model.mat', pix_XYZ, XYZn_D50);  % Convert XYZ to color-calibrated RGB
 
-% % Save the color-calibrated image as a .png file
-% imwrite(img_calib, 'color_calibrated_image.png');
+% Reshape the processed pixels back into an image
+img_calib = reshape(pix_DCs_calib', [r, c, p]);  % Reshape back to original dimensions
 
-% % Display the color-calibrated image
-% imshow(img_calib);
-% title('Color-Calibrated Image');
+% Save the color-calibrated image as a .png file
+imwrite(img_calib, 'color_calibrated_image.png');
 
+% Visualize the result
+figure;
+% Display the color-calibrated image
+imshow(img_calib);
+title('Color-Calibrated Image');
+
+cd ../project7/

@@ -4,7 +4,7 @@ function cam_XYZs = camRGB2XYZ(cam_model, cam_RGBs)
     load(cam_model, 'cam_polys', 'cam_matrix3x11');
 
     % Normalize cam_RGBs to the range 0-1
-    cam_rgbs = cam_RGBs / 255;
+    cam_rgbs = double(cam_RGBs) / 255;
 
     % Define indices for color channels
     r = 1; g = 2; b = 3;

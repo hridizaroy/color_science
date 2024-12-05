@@ -14,14 +14,15 @@ function disp_RGBs = XYZ2dispRGB(display_model, XYZs, XYZn)
     CC_DCs(1,:) = RLUT_disp(CC_RSs_scaled(1,:));
     CC_DCs(2,:) = GLUT_disp(CC_RSs_scaled(2,:));
     CC_DCs(3,:) = BLUT_disp(CC_RSs_scaled(3,:));
+
     
-    % visualize the CC XYZs using the display model
-    pix = uint8(reshape(CC_DCs', [6 4 3]));
-    pix = fliplr(imrotate(pix, -90));
-    figure;
-    image(pix);
-    set(gca, 'FontSize', 10.5);
-    title('colorchecker rendered from measured XYZs using XYZ2dispRGB function');
+    % % visualize the CC XYZs using the display model
+    % pix = uint8(reshape(CC_DCs', [6 4 3]));
+    % pix = fliplr(imrotate(pix, -90));
+    % figure;
+    % image(pix);
+    % set(gca, 'FontSize', 10.5);
+    % title('colorchecker rendered from measured XYZs using XYZ2dispRGB function');
 
     disp_RGBs = uint8(CC_DCs);
 end
