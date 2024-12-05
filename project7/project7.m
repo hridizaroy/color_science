@@ -1,7 +1,5 @@
-%% Project 7 Report
+    %% Project 7 Report
 % Team 5: Shakira Garnett, Hridiza Roy
-
-cd ../color_toolbox/
 
 %% Initialization
 clear all; close all; clc;
@@ -41,9 +39,9 @@ print_uncalibrated_workflow_error(munki_Labs, uncal_display_Labs, deltaEs_uncal)
 cam_XYZs = camRGB2XYZ('cam_model.mat', cam_RGBs_orig);
 
 XYZn_D50 = ref2XYZ(cie.PRD, cie.cmf2deg, cie.illD50);
-disp_RGBs = XYZ2dispRGB('display_model.mat', cam_XYZs, XYZn_D50);
+disp_RGBs_orig = XYZ2dispRGB('display_model.mat', cam_XYZs, XYZn_D50);
 
-disp_RGBs = uint8((double(disp_RGBs) / 255.0) * 100);
+disp_RGBs = uint8((double(disp_RGBs_orig) / 255.0) * 100);
 table4ti1 = [(1:30)', [disp_RGBs'; zeros(3, 3); 100 * ones(3, 3)] ];
 
 cal_XYZs = importdata('workflow_test_cal.ti3',' ',20);
@@ -66,51 +64,38 @@ print_calibrated_workflow_error(munki_Labs, cal_display_Labs, deltaEs_cal);
 
 %% Step 3
 
-% Load the data
-data = load('munki_CC_XYZs_Labs.txt');
-
-% Separate into XYZ and Lab arrays
-munki_XYZs = data(:, 2:4)';
+% Get XYZ values
+munki_XYZs = data(:, 2:4);
 
 % Create the color transformation structure for XYZ to sRGB
-% cform = makecform('xyz2srgb');
+cform = makecform('xyz2srgb', "AdaptedWhitePoint", XYZn_D50');
 
-% % Apply the color transformation
-% munki_RGBs = applycform(munki_XYZs', cform) % Transpose back for correct input format
-
-munki_RGBs = xyz2rgb(munki_XYZs');
+% Apply the color transformation
+munki_RGBs = applycform(double(munki_XYZs), cform);
 
 % Rescale RGB values from 0-100 to 0-255
-munki_RGBs_rescaled = munki_RGBs * (255 / 100);
+munki_RGBs_uint8 = uint8(double(munki_RGBs) * 255);
 
-% Convert to unsigned 8-bit integers
-munki_RGBs_uint8 = uint8(munki_RGBs_rescaled);
+% Repeat rows of ground truth to create 48 x 3 matrix
+top_row = reshape([munki_RGBs_uint8'; munki_RGBs_uint8'], [3, 48])';
 
-% THIS IS DUMMY DATA THAT NEEDS TO BE REPLACED BY THE ACTUAL
-% VALUES ACHIVED FROM STEPS 2a AND 2c AS STATED IN THE WRITE UP
-% THESE VARIABLES MUST BE CHANAGED DO NOT LEAVE THEM AS THEY ARE!!!
-% Create dummy data for the 24 RGB values (replace these with actual values once you have them)
-ground_truth_RGBs = munki_RGBs'  % Random RGB values for ground truth
-uncalibrated_RGBs = cam_RGBs_orig  % Random RGB values for uncalibrated
-calibrated_RGBs = cam_XYZs     % Random RGB values for calibrated
+% combine calibrated and uncalibrated data in an alternating fashion
+bottom_row = reshape([cam_RGBs_orig; disp_RGBs_orig], [3, 48])'
 
-% ground_truth_row = zeros([1,12,3])
-% for i = [1,12]
-%     ground_truth_row(i) = ground_truth_RGBs_uint8(1,:)    
-% end
+workflow_diffs = pagetranspose(reshape([reshape(top_row, [12, 4, 3]); reshape(bottom_row, [12, 4, 3])], [12, 8, 3]));
 
 
-% % Visualize the result
-% figure;
-% imshow(workflow_diffs);
-% title('Ground-Truth, Uncalibrated, and Calibrated RGB Values');
-% axis off;
+% Visualize the result
+figure;
+imshow(workflow_diffs);
+title('Ground-Truth, Uncalibrated, and Calibrated RGB Values');
+axis off;
 
-% % Resize the final image to 768x1024 (if needed)
-% workflow_diffs_resized = imresize(workflow_diffs, [768, 1024], 'nearest');
+% Resize the final image to 768x1024 (if needed)
+workflow_diffs_resized = imresize(workflow_diffs, [768, 1024],'nearest');
 
-% % Save the resized image as a PNG
-% imwrite(workflow_diffs_resized, 'workflow_diffs.png');
+% Save the resized image as a PNG
+imwrite(workflow_diffs_resized, 'workflow_diffs.png');
 
 %% Step 4
 % Load the original ColorChecker image
@@ -138,6 +123,4 @@ calibrated_RGBs = cam_XYZs     % Random RGB values for calibrated
 % % Display the color-calibrated image
 % imshow(img_calib);
 % title('Color-Calibrated Image');
-
-cd ../project7/
 
